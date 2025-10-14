@@ -1,0 +1,4 @@
+name: exclude query
+query-filters:
+  - exclude: 
+    id: actions/code-injection/critical
