@@ -95,7 +95,7 @@ jobs:
       uses: github/codeql-action/analyze@v3
       with:
         category: "/language:${{matrix.language}}"
-        config-file: ./github/exclude.yml
+        config-file: .github/exclude.yml
         
         
         
