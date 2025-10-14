@@ -49,10 +49,10 @@ app.MapGet("sqli/weatherforcast/{id}", (string id) =>{
 
     connection.Open();
 
-    string sql = "SELECT name, collation_name FROM sys.databases where id = @id";
+    string sql = $"SELECT name, collation_name FROM sys.databases where id = {id}";
 
     using SqlCommand command = new SqlCommand(sql, connection);
-    command.Parameters.AddWithValue("@id", id);
+
     return GetWF(command.ExecuteReader());
 });
 
@@ -76,3 +76,4 @@ record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }
+
