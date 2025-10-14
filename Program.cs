@@ -44,16 +44,22 @@ app.MapGet("/v2/weatherforecast/{id}", async (SiteContext context, string id) =>
 .WithOpenApi();
 
 app.MapGet("sqli/weatherforcast/{id}", (string id) =>{
-
     using SqlConnection connection = new SqlConnection(connectionString);
-
     connection.Open();
 
-    string sql = $"SELECT name, collation_name FROM sys.databases where id = {id}";
+    string sql = "SELECT name, collation_name FROM sys.databases WHERE id = @id";
 
     using SqlCommand command = new SqlCommand(sql, connection);
 
-    return GetWF(command.ExecuteReader());
+        if (!int.TryParse(id, out var parsedId))
+        {
+            // In a production app, return a proper error code/message.
+            throw new ArgumentException("Invalid id parameter");
+        }
+
+        command.Parameters.AddWithValue("@id", parsedId);
+
+        return GetWF(command.ExecuteReader());
 });
 
 IEnumerable<WeatherForecast> GetWF(SqlDataReader reader){
