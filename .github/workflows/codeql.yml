@@ -95,3 +95,6 @@ jobs:
       uses: github/codeql-action/analyze@v3
       with:
         category: "/language:${{matrix.language}}"
+        queries: actions/code-injection/critical
+        
+      
