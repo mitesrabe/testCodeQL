@@ -2,3 +2,4 @@ name: exclude query
 query-filters:
   - exclude: 
     id: cs/sql-injection
+    tags: /cwe-089/
